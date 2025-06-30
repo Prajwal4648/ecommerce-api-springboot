@@ -37,18 +37,18 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http,
                                                    DaoAuthenticationProvider daoAuthProvider,
                                                    JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
+
         http
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        // Allow Swagger and login endpoints
                         .requestMatchers(
-                                "/api/auth/**",
-                                "/api/products/**",
+                                "/api/auth/login",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
                                 "/v3/api-docs/**",
-                                "/v3/api-docs.yaml",
-                                "/swagger-ui/index.html"
+                                "/v3/api-docs.yaml"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

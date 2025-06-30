@@ -102,7 +102,7 @@ public class UserController {
                     @ApiResponse(responseCode = "401", description = "Unauthorized")
             })
     @PutMapping("/profile")
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<UserProfileDTO> updateUserProfile(@Valid @RequestBody UserUpdateDTO userUpdateDTO) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         UserProfileDTO updatedProfile = userService.updateUserProfile(username, userUpdateDTO);
